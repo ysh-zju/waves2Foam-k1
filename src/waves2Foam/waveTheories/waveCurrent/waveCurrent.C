@@ -51,11 +51,14 @@ waveCurrent::waveCurrent(
       period_(2 * PI_ / omega_),
       phi_(readScalar(coeffDict_.lookup("phi"))),
       k_(vector(coeffDict_.lookup("waveNumber"))),
+      direction_( vector(coeffDict_.lookup("direction"))),
       k1_ = linearWaveNumber1(),
       U_(vector(coeffDict_.lookup("U"))),
       #omegac_(omega_ + (k_ & U_)),
       K_(mag(k_)),
       K1_(mag(k1_)),
+      direction_(mag(direction_)),
+      k1_ *= direction_,
       Tsoft_(coeffDict_.lookupOrDefault<scalar>("Tsoft", period_)),
       debug_(Switch(coeffDict_.lookup("debug")))
 {
