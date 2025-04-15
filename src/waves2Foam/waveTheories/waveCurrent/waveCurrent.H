@@ -85,10 +85,11 @@ protected:
         scalar H_;
         scalar h_;
         scalar omega_;
-        scalar omegac_;
+        #scalar omegac_;
         scalar period_;
         scalar phi_;
         vector k_;
+        vector k1_;
         vector U_;
         scalar K_;
         scalar Tsoft_;
