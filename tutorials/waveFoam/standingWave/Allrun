@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+exec="$WAVES_DIR/bin/prepareCase.sh"
+
+if [ -x "$exec" ]
+then
+    . $exec
+else
+    echo "Make the file $WAVES_DIR/bin/prepareCase.sh executable."
+    echo
+    chmod +x $exec
+    . $exec
+fi
+
+# Set application name
+application="waveFoam"
+
+runApplication blockMesh
+runApplication setWaveParameters
+runApplication setWaveField
+runApplication $application
+

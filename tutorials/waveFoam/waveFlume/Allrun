@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+exec="$WAVES_DIR/bin/prepareCase.sh"
+
+if [ -x "$exec" ]
+then
+    . $exec
+else
+    echo "Make the file $WAVES_DIR/bin/prepareCase.sh executable."
+    echo
+    chmod +x $exec
+    . $exec
+fi
+
+# Set application name
+application="waveFoam"
+
+# Create the computational mesh
+runApplication blockMesh
+
+# Create the wave probes
+runApplication waveGaugesNProbes
+
+# Compute the wave parameters
+runApplication setWaveParameters
+
+# Set the wave field
+runApplication setWaveField
+
+# Run the application
+runApplication $application
+
+# To a post-processing analysis
+# postProcessWaves2Foam removed as of Jan. 2021
+#ln -s postProcessing/surfaceElevationAnyName surfaceElevationAnyName
+#runApplication postProcessWaves2Foam
